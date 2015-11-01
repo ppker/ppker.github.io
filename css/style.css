@@ -2093,7 +2093,7 @@ footer {
 .article-content pre,
 .article-content .highlight,
 .article-content .highlight pre {
-  background: #eee;
+  background: #7be0e0;
   margin: 0.5em 0;
   padding: 0.5em 2%;
   color: #4d4d4c;
@@ -2177,7 +2177,7 @@ footer {
 }
 .article-content .gist {
   margin: 0.5em 0;
-  background: #eee;
+  background: #7be0e0;
   padding: 1em 2%;
   -webkit-border-radius: 0.35em;
   -webkit-border-radius: 0.35em;
@@ -2204,10 +2204,10 @@ footer {
   margin: 0;
   padding: 0;
   border: none;
-  background: #eee;
+  background: #7be0e0;
 }
 .article-content .gist .gist-file .gist-meta {
-  background: #eee;
+  background: #7be0e0;
   color: #8e908c;
   font: 0.85em "Georgia", serif;
   text-shadow: 0 0;

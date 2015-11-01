@@ -1,0 +1,511 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Yii2教程应用结构篇--小部件 | 九地</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="ppker">
+    
+
+    
+    <meta name="description" content="Yii2教程应用结构篇--小部件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Yii2教程应用结构篇--小部件">
+<meta property="og:url" content="http://ppker.github.io/2015/11/02/Yii2教程应用结构篇-小部件/index.html">
+<meta property="og:site_name" content="九地">
+<meta property="og:description" content="Yii2教程应用结构篇--小部件">
+<meta property="og:updated_time" content="2015-11-01T19:47:25.051Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Yii2教程应用结构篇--小部件">
+<meta name="twitter:description" content="Yii2教程应用结构篇--小部件">
+
+    
+    <link rel="alternative" href="/atom.xml" title="九地" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jiudi.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jiudi.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="九地" title="九地"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="九地">九地</a></h1>
+				<h2 class="blog-motto">天行健君子以自强不息，地势坤君子以厚德载物</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:ppker.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/11/02/Yii2教程应用结构篇-小部件/" title="Yii2教程应用结构篇--小部件" itemprop="url">Yii2教程应用结构篇--小部件</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="ppker" target="_blank" itemprop="author">ppker</a>
+		
+  <p class="article-time">
+    <time datetime="2015-11-01T19:25:29.000Z" itemprop="datePublished"> 发表于 2015-11-02</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#使用小部件"><span class="toc-number">1.</span> <span class="toc-text">使用小部件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建小部件"><span class="toc-number">2.</span> <span class="toc-text">创建小部件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#最佳实践"><span class="toc-number">3.</span> <span class="toc-text">最佳实践</span></a></li></ol>
+		
+		</div>
+		
+		<p>小部件在视图中使用的是可重用单元，使用面向对象的方式创建复杂和可配置的用户界面单元。例如，日期选择小部<code>tePicker</code>可生成一个精致的允许用户选择日期的日期选择器，你需要在视图中插入下面代码：<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">&lt;?php</span></span><br><span class="line"><span class="keyword">use</span> <span class="title">yii</span>\<span class="title">jui</span>\<span class="title">DatePicker</span>;</span><br><span class="line"><span class="preprocessor">?&gt;</span></span><br><span class="line"><span class="preprocessor">&lt;?</span>= DatePicker::widget([<span class="string">'name'</span> =&gt; <span class="string">'date'</span>]) <span class="preprocessor">?&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>Yii提供许多优秀的小部件，比如[[yii\widgets\ActiveForm|active form]], [yii\widgets\Menu|menu]], jQuery UI widgets, Twitter Bootstrap widgets。 接下来介绍小部件的基本知识，如果你想了解某个小部件请参考对应的类API文档。</p>
+<h2 id="使用小部件">使用小部件</h2><p>小部件基本上在views中使用，在视图中可调用 [[yii\base\Widget::widget()]] 方法使用小部件。 该方法使用 配置 数组初始化小部件并返回小部件渲染后的结果。 例如如下代码插入一个日期选择器小部件，它配置为使用俄罗斯语，输入框内容为$model的from_date属性值。<br><a id="more"></a><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">&lt;?php</span></span><br><span class="line"><span class="keyword">use</span> <span class="title">yii</span>\<span class="title">jui</span>\<span class="title">DatePicker</span>;</span><br><span class="line"><span class="preprocessor">?&gt;</span></span><br><span class="line"><span class="preprocessor">&lt;?</span>= DatePicker::widget([</span><br><span class="line">   <span class="string">'model'</span> =&gt; <span class="variable">$model</span>,</span><br><span class="line">   <span class="string">'attribute'</span> =&gt; <span class="string">'from_date'</span>,</span><br><span class="line">   <span class="string">'language'</span> =&gt; <span class="string">'ru'</span>,</span><br><span class="line">   <span class="string">'clientOptions'</span> =&gt; [</span><br><span class="line">       <span class="string">'dateFormat'</span> =&gt; <span class="string">'yy-mm-dd'</span>,</span><br><span class="line">   ],</span><br><span class="line">]) <span class="preprocessor">?&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>一些小部件可在[[yii\base\Widget::begin()]] 和 [[yii\base\Widget::end()]] 调用中使用数据内容。Some widgets can take a block of content which should be enclosed between the invocation of 例如如下代码使用[[yii\widgets\ActiveForm]]小部件生成一个登录表单， 小部件会在begin() 和0 end()执行处分别生成<code>&lt;form&gt;</code>的开始标签和结束标签，中间的任何代码也会被渲染。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">use yii\widgets\ActiveForm;</span><br><span class="line">use yii\helpers\Html;</span><br><span class="line">?&gt;</span><br><span class="line"></span><br><span class="line">&lt;?php $form = ActiveForm::begin(['id' =&gt; 'login-form']); ?&gt;</span><br><span class="line"></span><br><span class="line">   &lt;?= $form-&gt;field($model, 'username') ?&gt;</span><br><span class="line"></span><br><span class="line">   &lt;?= $form-&gt;field($model, 'password')-&gt;passwordInput() ?&gt;</span><br><span class="line"></span><br><span class="line">   &lt;div class="form-group"&gt;</span><br><span class="line">       &lt;?= Html::submitButton('Login') ?&gt;</span><br><span class="line">   &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&lt;?php ActiveForm::end(); ?&gt;</span><br></pre></td></tr></table></figure></p>
+<p>注意和调用 [[yii\base\Widget::widget()]] 返回渲染结果不同， 调用 [[yii\base\Widget::begin()]] 方法返回一个可组建小部件内容的小部件实例</p>
+<h2 id="创建小部件">创建小部件</h2><p>继承 [[yii\base\Widget]] 类并覆盖 [[yii\base\Widget::init()]] 和/或 [[yii\base\Widget::run()]] 方法可创建小部件。通常init() 方法处理小部件属性， run() 方法包含小部件生成渲染结果的代码。 渲染结果可在run()方法中直接”echoed”输出或以字符串返回。<br>如下代码中HelloWidget编码并显示赋给message 属性的值， 如果属性没有被赋值，默认会显示”Hello World”。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title">app</span>\<span class="title">components</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">use</span> <span class="title">yii</span>\<span class="title">base</span>\<span class="title">Widget</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">yii</span>\<span class="title">helpers</span>\<span class="title">Html</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HelloWidget</span> <span class="keyword">extends</span> <span class="title">Widget</span></span><br><span class="line"></span>&#123;</span><br><span class="line">   <span class="keyword">public</span> <span class="variable">$message</span>;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">init</span><span class="params">()</span></span><br><span class="line">   </span>&#123;</span><br><span class="line">       <span class="keyword">parent</span>::init();</span><br><span class="line">       <span class="keyword">if</span> (<span class="variable">$this</span>-&gt;message === <span class="keyword">null</span>) &#123;</span><br><span class="line">           <span class="variable">$this</span>-&gt;message = <span class="string">'Hello World'</span>;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">run</span><span class="params">()</span></span><br><span class="line">   </span>&#123;</span><br><span class="line">       <span class="keyword">return</span> Html::encode(<span class="variable">$this</span>-&gt;message);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用这个小部件只需在视图中简单使用如下代码:<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">&lt;?php</span></span><br><span class="line"><span class="keyword">use</span> <span class="title">app</span>\<span class="title">components</span>\<span class="title">HelloWidget</span>;</span><br><span class="line"><span class="preprocessor">?&gt;</span></span><br><span class="line"><span class="preprocessor">&lt;?</span>= HelloWidget::widget([<span class="string">'message'</span> =&gt; <span class="string">'Good morning'</span>]) <span class="preprocessor">?&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>以下是另一种可在begin() 和 end()调用中使用的HelloWidget，HTML编码内容然后显示。<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title">app</span>\<span class="title">components</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">use</span> <span class="title">yii</span>\<span class="title">base</span>\<span class="title">Widget</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">yii</span>\<span class="title">helpers</span>\<span class="title">Html</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HelloWidget</span> <span class="keyword">extends</span> <span class="title">Widget</span></span><br><span class="line"></span>&#123;</span><br><span class="line">   <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">init</span><span class="params">()</span></span><br><span class="line">   </span>&#123;</span><br><span class="line">       <span class="keyword">parent</span>::init();</span><br><span class="line">       ob_start();</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">run</span><span class="params">()</span></span><br><span class="line">   </span>&#123;</span><br><span class="line">       <span class="variable">$content</span> = ob_get_clean();</span><br><span class="line">       <span class="keyword">return</span> Html::encode(<span class="variable">$content</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如上所示，PHP输出缓冲在init()启动，所有在init() 和 run()方法之间的输出内容都会被获取，并在run()处理和返回。<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">补充: 当你调用 [[yii\base\Widget::<span class="function"><span class="title">begin</span><span class="params">()</span></span>]] 时会创建一个新的小部件实例并在构造结束时调用<span class="function"><span class="title">init</span><span class="params">()</span></span>方法， 在<span class="function"><span class="title">end</span><span class="params">()</span></span>时会调用<span class="function"><span class="title">run</span><span class="params">()</span></span>方法并输出返回结果。</span><br></pre></td></tr></table></figure></p>
+<p>如下代码显示如何使用这种 HelloWidget:<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">&lt;?php</span></span><br><span class="line"><span class="keyword">use</span> <span class="title">app</span>\<span class="title">components</span>\<span class="title">HelloWidget</span>;</span><br><span class="line"><span class="preprocessor">?&gt;</span></span><br><span class="line"><span class="preprocessor">&lt;?php</span> HelloWidget::begin(); <span class="preprocessor">?&gt;</span></span><br><span class="line"></span><br><span class="line">   content that may contain &lt;tag&gt;<span class="string">'s</span><br><span class="line"></span><br><span class="line">&lt;?php HelloWidget::end(); ?&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>有时小部件需要渲染很多内容，一种更好的办法是将内容放入一个视图文件， 然后调用[[yii\base\Widget::render()]]方法渲染该视图文件，例如：<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">run</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">   <span class="keyword">return</span> <span class="variable">$this</span>-&gt;render(<span class="string">'hello'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>小部件的视图文件默认存储在WidgetPath/views目录，WidgetPath代表小部件类文件所在的目录。 假如上述示例小部件类文件在@app/components下，会渲染@app/components/views/hello.php视图文件。 You may override 可以覆盖[[yii\base\Widget::getViewPath()]]方法自定义视图文件所在路径。</p>
+<h2 id="最佳实践">最佳实践</h2><ul>
+<li>小部件是面向对象方式来重用视图代码。</li>
+<li>创建小部件时仍需要遵循MVC模式，通常逻辑代码在小部件类，展示内容在视图中。</li>
+<li>小部件设计时应是独立的，也就是说使用一个小部件时候，可以直接丢弃它而不需要额外的处理。</li>
+<li>但是当小部件需要外部资源如CSS, JavaScript, 图片等会比较棘手， 幸运的时候Yii提供 资源包 来解决这个问题。</li>
+<li>当一个小部件只包含视图代码，它和视图很相似,实际上，在这种情况下，唯一的区别是小部件是可以重用类，视图只是应用中使用的普通PHP脚本。</li>
+</ul>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/PHP框架/">PHP框架</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Yii2框架/">Yii2框架</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://ppker.github.io/2015/11/02/Yii2教程应用结构篇-小部件/" data-title="Yii2教程应用结构篇--小部件 | 九地" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2015/10/21/hello-world/"  title="Hello World">
+ <strong>下一篇：</strong><br/> 
+ <span>Hello World
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2015/11/02/Yii2教程应用结构篇-小部件/" data-title="Yii2教程应用结构篇--小部件" data-url="http://ppker.github.io/2015/11/02/Yii2教程应用结构篇-小部件/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#使用小部件"><span class="toc-number">1.</span> <span class="toc-text">使用小部件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建小部件"><span class="toc-number">2.</span> <span class="toc-text">创建小部件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#最佳实践"><span class="toc-number">3.</span> <span class="toc-text">最佳实践</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="ppker" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/PHP框架/" title="PHP框架">PHP框架<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/Yii2框架/" title="Yii2框架">Yii2框架<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.yiichina.com/" target="_blank" title="Yii中文社区">Yii中文社区</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=b3593ceb&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> 一个土木专业转编程的屌丝 <br/>
+			临渊羡鱼不如退而织网，Writing the code,changing the world.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		<a href="https://github.com/ppker" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:1366525100@qq.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+		
+		<a href="/about" target="_blank" title="ppker">ppker</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"ppker"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fnull' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
