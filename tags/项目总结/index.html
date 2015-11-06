@@ -1,10 +1,10 @@
 
- <!DOCTYPE HTML>
+  <!DOCTYPE HTML>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   
-    <title>tags | 九地</title>
+    <title>标签 : 项目总结 | 九地</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="ppker">
@@ -13,13 +13,12 @@
     
     <meta name="description" content="自强不息、厚德载物">
 <meta property="og:type" content="website">
-<meta property="og:title" content="tags">
+<meta property="og:title" content="九地">
 <meta property="og:url" content="http://ppker.github.io/tags/项目总结/index.html">
 <meta property="og:site_name" content="九地">
 <meta property="og:description" content="自强不息、厚德载物">
-<meta property="og:updated_time" content="2015-10-24T13:40:26.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="tags">
+<meta name="twitter:title" content="九地">
 <meta name="twitter:description" content="自强不息、厚德载物">
 
     
@@ -74,19 +73,31 @@
 </div>
       </header>
       <div id="container">
-          
+        
+
 <div class="archive-title" >
-<h2 class="tag-icon">标签</h2>
-
-<a data-src="/tags/Yii2框架/" href="#Yii2框架" title="Yii2框架">Yii2框架<sup>1</sup></a>
-
+  <h2 class="tag-icon">项目总结</h2>
+  
 </div>
-<div id="main" class="archive-part">
-<div class="all-list-box"></div>
+<div id="main" class="archive-part clearfix">
+  <div id="archive-page">
+
+  <section class="post" itemscope itemprop="blogPost">
+  
+    <a href="/2015/11/06/hexo博客命令入门/" title="hexo博客命令入门" itemprop="url">
+  
+
+    <time datetime="2015-11-06T14:48:29.000Z" itemprop="datePublished">2015-11-06</time>
+
+
+    <h1 itemprop="name">hexo博客命令入门</h1>
+
+  </a>
+</section>
+
+
+  </div>
 </div>
-
-
-
 
       </div>
       <footer><div id="footer" >
@@ -199,24 +210,6 @@ $(document).ready(function(){
 
 
 
-
-<script type="text/javascript">
-$(document).ready(function(){ 
-  var list    = $('.archive-title a'),
-      box     = $('.all-list-box'),
-      first   = $('.archive-title a:first-of-type');
-      box.load(first.attr('data-src').toString()+' #archive-page');
-      first.addClass('current');
-  list.each(function(){
-    $(this).click(function(){
-      var listSrc=$(this).attr('data-src').toString()+' #archive-page';
-      box.load(listSrc);
-      list.removeClass('current');
-      $(this).addClass('current');
-     });  
-    });
-  }); 
-</script>
 
 
 <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
